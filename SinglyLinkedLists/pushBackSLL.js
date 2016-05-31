@@ -5,9 +5,8 @@ function pushBack(val){
 	while(current){
 		if(current.next == null){
 			current.next = valNode;
-			break;
+			return true;
 		}
 		current = current.next;
 	}
-	return true;
 }

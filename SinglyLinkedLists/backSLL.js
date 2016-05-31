@@ -5,9 +5,8 @@ function Back(){
 	while(current){
 		if(current.next == null){
 			value = current.value;
-			break;
+			return value;
 		}
 		current = current.next;
 	}
-	return value;
 }

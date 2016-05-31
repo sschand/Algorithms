@@ -5,9 +5,8 @@ function popBack(){
 		if(current.next.next == null){
 			value = current.next.value;
 			current.next = null;
-			break;
+			return value;
 		}
 		current = current.next;
 	}
-	return value;
 }
