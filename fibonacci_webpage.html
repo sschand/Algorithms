@@ -4,22 +4,26 @@
         <meta charset="utf-8">
         <title>Fibonacci</title>
         <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" >
     </head>
     <body>
-        <h1>Fibonacci Sequence</h1>
-        <p>
-            Please enter the length of the Fibonacci Sequence you would like to see.
-        </p>
-        <input type="number" id="fib_length" name="fib_length" value="">
-        <button id="findFib" type="button" name="button" onclick="findFib">Find Sequence</button>
+        <div class="container">
+            <h1>Fibonacci Sequence</h1>
+            <p>
+                Please enter the length of the Fibonacci Sequence you would like to see.
+            </p>
+            <input type="number" id="fib_length" name="fib_length" value="">
+            <button id="findFib" type="button" name="button" onclick="findFib">Find Sequence</button>
+
+        </div>
 
 
-        <div id="sequence"></div>
+        <div class="container" id="sequence"></div>
 
 
         <script type="text/javascript">
             $(document).ready(function(){
-                /*  */
+
                 /* This function creates the Fibonacci sequence in an array, num is the length of the sequence requested by the user, x is the position to be populated if not already populated, and arr is the array which holds the sequence */
                 function fib(num, x, arr){
                     // First time around initialize the first two elements of the array; Push 0 and 1 to be the first two elements of the Fibonacci sequence
@@ -56,21 +60,24 @@
                 $("#findFib").on('click', function(){
                     $("#sequence").html('');
                     var number = $("#fib_length").val();
-                    var x = 0;
-                    var arr = [];
-                    var sequence = fib(number, x, arr);
+                    // Only do for
+                    if(number != 0){
+                        var x = 0;
+                        var arr = [];
+                        var sequence = fib(number, x, arr);
 
-                    // var sequence = findFib(number);
-                    var i = 0;
-                    while(i < sequence.length){
-                        if(i == sequence.length -1){
-                            $("#sequence").append(sequence[i]);
-                        }else{
-                            $("#sequence").append(sequence[i] + ', ');
+                        // var sequence = findFib(number);
+                        var i = 0;
+                        while(i < sequence.length){
+                            if(i == sequence.length -1){
+                                $("#sequence").append(sequence[i]);
+                            }else{
+                                $("#sequence").append(sequence[i] + ', ');
+                            }
+                            i++;
                         }
-                        i++;
                     }
-                })
+                });
 
                 // function findFib(num){
                 //     var x = 0;
