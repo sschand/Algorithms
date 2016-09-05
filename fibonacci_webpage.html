@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fibonacci</title>
+        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    </head>
+    <body>
+        <h1>Fibonacci Sequence</h1>
+        <p>
+            Please enter the length of the Fibonacci Sequence you would like to see.
+        </p>
+        <input type="number" id="fib_length" name="fib_length" value="">
+        <button id="findFib" type="button" name="button" onclick="findFib">Find Sequence</button>
+
+
+        <div id="sequence"></div>
+
+
+        <script type="text/javascript">
+            $(document).ready(function(){
+                /*  */
+                /* This function creates the Fibonacci sequence in an array, num is the length of the sequence requested by the user, x is the position to be populated if not already populated, and arr is the array which holds the sequence */
+                function fib(num, x, arr){
+                    // First time around initialize the first two elements of the array; Push 0 and 1 to be the first two elements of the Fibonacci sequence
+                    if(x == 0){
+                        arr.push(0);
+
+                        // for case if length requested is 1
+                        if(num == 1){
+                            return arr;
+                        }
+
+                        // for case if length requested is 2
+                        arr.push(1);
+                        if(num == 2){
+                            return arr;
+                        }
+
+                        // next position to fill is x
+                        x = 2;
+                    }
+
+                    // for cases length requested is greater than 2, populate sequence array recursively and return array
+                    if(num > x){
+                        var current = arr[x-2] + arr[x-1];
+                        arr.push(current);
+                        x++;
+                        return fib(num, x, arr);
+                    }else{
+                        return arr;
+                    }
+                }
+
+                //
+                $("#findFib").on('click', function(){
+                    $("#sequence").html('');
+                    var number = $("#fib_length").val();
+                    var x = 0;
+                    var arr = [];
+                    var sequence = fib(number, x, arr);
+
+                    // var sequence = findFib(number);
+                    var i = 0;
+                    while(i < sequence.length){
+                        if(i == sequence.length -1){
+                            $("#sequence").append(sequence[i]);
+                        }else{
+                            $("#sequence").append(sequence[i] + ', ');
+                        }
+                        i++;
+                    }
+                })
+
+                // function findFib(num){
+                //     var x = 0;
+                //     var arr = [];
+                //     return fib(num, x, arr);
+                // };
+            });
+        </script>
+    </body>
+</html>
