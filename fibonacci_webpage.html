@@ -1,90 +1,125 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Fibonacci</title>
-        <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" >
-    </head>
-    <body>
-        <div class="container">
-            <h1>Fibonacci Sequence</h1>
-            <p>
-                Please enter the length of the Fibonacci Sequence you would like to see.
-            </p>
-            <input type="number" id="fib_length" name="fib_length" value="">
-            <button id="findFib" type="button" name="button" onclick="findFib">Find Sequence</button>
+<head>
+    <meta charset="utf-8">
+    <title>Fibonacci Sequence </title>
+    <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css" >
+    <!-- Big O Notation:
+    In this version of the Fibonacci Sequence, every time the function is called it saves the computed sequence in an array. So the next time the function is called, it first checks to see if the length requested is less than the computed sequence length. If so, the subarray with the requested length is printed. Otherwise, the missing sequence in the array are calculated and populated recursively.
 
-        </div>
+    As previous computations are saved in memory, this function will only compute what hasn't already been computed which will save time and memory.
 
 
-        <div class="container" id="sequence"></div>
+    function fib(num, arr){
+        if(arr.length == 0){                                            >>> O(1)
+            arr.push(0);                                                >>> O(1)
 
+            // for case if length requested is 1
+            if(num == 1){
+                return arr;
+            }
 
-        <script type="text/javascript">
-            $(document).ready(function(){
+            arr.push(1);                                                >>> O(1)
+            // for case if length requested is 2
+            if(num == 2){
+                return arr;
+            }
+        }
 
-                /* This function creates the Fibonacci sequence in an array, num is the length of the sequence requested by the user, x is the position to be populated if not already populated, and arr is the array which holds the sequence */
-                function fib(num, x, arr){
-                    // First time around initialize the first two elements of the array; Push 0 and 1 to be the first two elements of the Fibonacci sequence
-                    if(x == 0){
-                        arr.push(0);
+        // for cases length requested is greater than 2, populate sequence array recursively and return array
+        if(num > arr.length){                                           >>> O(1)
+            var current = arr[arr.length-2] + arr[arr.length-1];        >>> O(1)
+            arr.push(current);                                          >>> O(1)
 
-                        // for case if length requested is 1
-                        if(num == 1){
-                            return arr;
-                        }
+            return fib(num, arr);                                       >>> O(N)
+        }else{
+            return arr;
+        }
+    }
+    O(1) + O(1) + O(1) + O(1) + O(1) + O(1) + O(N) ->
+    6(O(1)) + O(N) -> >>> in Big O we look at the 'biggest term' which would be O(N) here
+    O(N)
 
-                        // for case if length requested is 2
-                        arr.push(1);
-                        if(num == 2){
-                            return arr;
-                        }
+    This takes a constant amount of time and requires the constant amount of work N times - for computing additional sequence elements. So this has an O(N) runtime.
 
-                        // next position to fill is x
-                        x = 2;
-                    }
+    The space needed would be O(S), the larger the requested length, the larger the array would be printed out.
+    -->
+</head>
+<body>
+    <div class="container">
+        <h1>Fibonacci Sequence</h1>
+        <p>Please enter the length of the Fibonacci Sequence you would like to see.</p>
 
-                    // for cases length requested is greater than 2, populate sequence array recursively and return array
-                    if(num > x){
-                        var current = arr[x-2] + arr[x-1];
-                        arr.push(current);
-                        x++;
-                        return fib(num, x, arr);
-                    }else{
-                        return arr;
-                    }
+        <input type="number" id="fib_length" name="fib_length" value="">
+        <button id="findFib" type="button" name="button" onclick="findFib" class="button-primary">Find Sequence</button>
+    </div>
+
+    <div class="container" id="sequence"></div>
+
+    <script type="text/javascript">
+    $(document).ready(function(){
+        // var fib_seq_arr = [0, 1]; // Fibonacci Sequence Array, nitialized with first two sequence numbers as 0 and 1
+        var fib_seq_arr = [];
+        // On button click of Find Sequence
+        $("#findFib").on('click', function(){
+            $("#sequence").html('');
+            var number = $("#fib_length").val();
+
+            var existed_sequence_length = fib_seq_arr.length;
+
+            // Only do for length greater than 0, if the sequence has already been populated, grab subarray from main fib sequence array otherwise compute the rest of the sequence.
+            if(number != 0){
+                $("#sequence").append('<p>The Sequence is: </p>');
+                if(number <= existed_sequence_length){
+                    print_sequence(fib_seq_arr.slice(0, number));
+                }else{
+                    print_sequence(fib(number, fib_seq_arr));
+                }
+            }
+        });
+
+        // This function is to print the sequence requested by the user
+        function print_sequence(arr){
+            var i = 0;
+            while(i < arr.length){
+                if(i == arr.length -1){
+                    $("#sequence").append(arr[i]);
+                }else{
+                    $("#sequence").append(arr[i] + ', ');
+                }
+                i++;
+            }
+        }
+
+        // This function creates the Fibonacci sequence in an array, num is the length of the sequence requested by the user, x is the position to be populated if not already populated, and arr is the array which holds the sequence
+        function fib(num, arr){
+            if(arr.length == 0){
+                arr.push(0);
+
+                // for case if length requested is 1
+                if(num == 1){
+                    return arr;
                 }
 
-                //
-                $("#findFib").on('click', function(){
-                    $("#sequence").html('');
-                    var number = $("#fib_length").val();
-                    // Only do for
-                    if(number != 0){
-                        var x = 0;
-                        var arr = [];
-                        var sequence = fib(number, x, arr);
+                arr.push(1);
+                // for case if length requested is 2
+                if(num == 2){
+                    return arr;
+                }
+            }
 
-                        // var sequence = findFib(number);
-                        var i = 0;
-                        while(i < sequence.length){
-                            if(i == sequence.length -1){
-                                $("#sequence").append(sequence[i]);
-                            }else{
-                                $("#sequence").append(sequence[i] + ', ');
-                            }
-                            i++;
-                        }
-                    }
-                });
+            // for cases length requested is greater than 2, populate sequence array recursively and return array
+            if(num > arr.length){
+                var current = arr[arr.length-2] + arr[arr.length-1];
+                arr.push(current);
 
-                // function findFib(num){
-                //     var x = 0;
-                //     var arr = [];
-                //     return fib(num, x, arr);
-                // };
-            });
-        </script>
-    </body>
+                return fib(num, arr);
+            }else{
+                return arr;
+            }
+        }
+    });
+    </script>
+</body>
 </html>
