@@ -9,7 +9,7 @@ word0(["a", "b", "a", "c", "b"]) → {"a": 0, "b": 0, "c": 0}
 word0(["c", "b", "a"]) → {"a": 0, "b": 0, "c": 0}
  */
 
-function mapString(arr) {
+function word0(arr) {
     var mapped = {};
 
     for (var i = 0; i < arr.length; i++ ) {
@@ -21,6 +21,6 @@ function mapString(arr) {
     console.log(mapped);
 }
 
-mappedString(["a", "b", "a", "b"]);
-mappedString(["a", "b", "a", "c", "b"]);
-mappedString(["c", "b", "a"]);
+word0(["a", "b", "a", "b"]);
+word0(["a", "b", "a", "c", "b"]);
+word0(["c", "b", "a"]);
