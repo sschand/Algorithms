@@ -14,9 +14,7 @@ function wordLen(arr) {
 
     for (var i = 0; i < arr.length; i++) {
         if ( !mappedObj[arr[i]]) {
-            mappedObj[arr[i]] = 1;
-        } else {
-            mappedObj[arr[i]] = mappedObj[arr[i]]++;
+            mappedObj[arr[i]] = arr[i].length;
         }
     }
 
@@ -24,5 +22,5 @@ function wordLen(arr) {
 }
 
 wordLen(["a", "bb", "a", "bb"]);
-wordLen(["this", "and", "that", "and"];
+wordLen(["this", "and", "that", "and"]);
 wordLen(["code", "code", "code", "bug"]);
