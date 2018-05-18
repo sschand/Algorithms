@@ -8,3 +8,19 @@ word0(["a", "b", "a", "b"]) → {"a": 0, "b": 0}
 word0(["a", "b", "a", "c", "b"]) → {"a": 0, "b": 0, "c": 0}
 word0(["c", "b", "a"]) → {"a": 0, "b": 0, "c": 0}
  */
+
+function mapString(arr) {
+    var mapped = {};
+
+    for (var i = 0; i < arr.length; i++ ) {
+        if ( !mapped[arr[i]]) {
+            mapped[arr[i]] = 0;
+        }
+    }
+
+    console.log(mapped);
+}
+
+mappedString(["a", "b", "a", "b"]);
+mappedString(["a", "b", "a", "c", "b"]);
+mappedString(["c", "b", "a"]);
